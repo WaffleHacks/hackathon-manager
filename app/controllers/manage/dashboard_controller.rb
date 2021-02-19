@@ -5,7 +5,7 @@ class Manage::DashboardController < Manage::ApplicationController
   end
 
   def map_data
-    @schools = School.where("questionnaire_count", 1..Float::INFINITY).select([:name, :address, :city, :state, :questionnaire_count])
+    @schools = School.where("questionnaire_count >= 1").select([:name, :address, :city, :state, :questionnaire_count])
   end
 
   def todays_activity_data
@@ -23,8 +23,8 @@ class Manage::DashboardController < Manage::ApplicationController
     date_min = Time.zone.today.beginning_of_day
     render json: {
       "Applications" => Questionnaire.where("created_at >= :date_min", date_min: date_min).count,
-      "Confirmations" => Questionnaire.where("acc_status = \"rsvp_confirmed\" AND acc_status_date >= :date_min", date_min: date_min).count,
-      "Denials" => Questionnaire.where("acc_status = \"rsvp_denied\" AND acc_status_date >= :date_min", date_min: date_min).count,
+      "Confirmations" => Questionnaire.where("acc_status = 'rsvp_confirmed' AND acc_status_date >= :date_min", date_min: date_min).count,
+      "Denials" => Questionnaire.where("acc_status = 'rsvp_denied' AND acc_status_date >= :date_min", date_min: date_min).count,
       "Incomplete Applications" => User.without_questionnaire.where("users.created_at >= :date_min", date_min: date_min).count,
     }
   end

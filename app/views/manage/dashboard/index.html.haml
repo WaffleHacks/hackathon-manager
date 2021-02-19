@@ -27,7 +27,7 @@
     %h5.dashboard-container-title Today's Stats
     = pie_chart todays_stats_data_manage_dashboard_index_path, colors: [blue, green, red, grey]
 
-- if Questionnaire.where('checked_in_at > 0').any? || Questionnaire.where('boarded_bus_at > 0').any?
+- if Questionnaire.where('extract(epoch from checked_in_at) > 0').any? || Questionnaire.where('extract(epoch from boarded_bus_at) > 0').any?
   .row
     .col
       %h5.dashboard-container-title Check-in activity
