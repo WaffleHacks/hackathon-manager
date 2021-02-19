@@ -73,13 +73,13 @@ If there's a new feature you're looking to implement, **please** file an issue t
 
 ## Local Development
 
-1. Setup Ruby + MySQL for local development
+1. Setup Ruby + PostgreSQL for local development
 
-If you don't already have Ruby + MySQL set up, see [this guide by GoRails](https://gorails.com/setup) for pointers.
+If you don't already have Ruby + PostgreSQL set up, see [this guide by GoRails](https://gorails.com/setup) for pointers.
 
 * Select your computer's operating system & version
 * If given the choice, use `rbenv` -- this will ensure a clean, sustainable Ruby dev environment
-* SQLite and PostgreSQL steps are optional
+* SQLite and MySQL steps are optional
 
 2. Clone the repo
 
