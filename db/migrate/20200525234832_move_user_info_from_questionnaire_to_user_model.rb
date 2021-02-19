@@ -11,8 +11,8 @@ class MoveUserInfoFromQuestionnaireToUserModel < ActiveRecord::Migration[5.2]
     add_column :users, :last_name,  :string
 
     # Copy the data
-    execute "UPDATE users u, questionnaires q SET u.first_name = q.first_name WHERE u.id = q.user_id"
-    execute "UPDATE users u, questionnaires q SET u.last_name  = q.last_name  WHERE u.id = q.user_id"
+    execute "UPDATE users SET first_name = questionnaires.first_name FROM questionnaires WHERE users.id = questionnaires.user_id"
+    execute "UPDATE users SET last_name  = questionnaires.last_name  FROM questionnaires WHERE users.id = questionnaires.user_id"
 
     # If either first or last name is null,
     # use the first part of their email as their first and last name.
@@ -38,8 +38,8 @@ class MoveUserInfoFromQuestionnaireToUserModel < ActiveRecord::Migration[5.2]
     add_column :questionnaires, :last_name,  :string
 
     # Copy the data
-    execute "UPDATE questionnaires q, users u SET q.first_name = u.first_name WHERE q.user_id = u.id"
-    execute "UPDATE questionnaires q, users u SET q.last_name  = u.last_name  WHERE q.user_id = u.id"
+    execute "UPDATE questionnaires SET first_name = users.first_name FROM users WHERE questionnaires.user_id = users.id"
+    execute "UPDATE questionnaires SET last_name  = users.last_name  FROM users WHERE questionnaires.user_id = users.id"
 
     # For all users, undo the email assignment scheme we did before,
     # and set both their first/last name to nil.

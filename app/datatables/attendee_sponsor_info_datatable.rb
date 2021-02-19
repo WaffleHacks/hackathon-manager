@@ -31,7 +31,7 @@ class AttendeeSponsorInfoDatatable < ApplicationDatatable
 
   def get_raw_records
     # Condition: only retrieve users that have agreed to share data and are at the event
-    restrictions = "can_share_info = '1' AND checked_in_at != 0"
+    restrictions = "can_share_info = '1' AND extract(epoch from checked_in_at) != 0"
 
     q_attributes = [
       :id,

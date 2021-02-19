@@ -30,7 +30,7 @@ class CheckedInDatatable < ApplicationDatatable
   end
 
   def get_raw_records
-    restrictions = "checked_in_at > 0"
+    restrictions = "extract(epoch from checked_in_at) > 0"
 
     q_attributes = [
       :id,
