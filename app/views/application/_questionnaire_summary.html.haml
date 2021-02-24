@@ -3,6 +3,9 @@
     %b Why #{HackathonConfig['name']}?
   %p= @questionnaire.why_attend.presence || "(not provided)"
 %p
+  %b Discord username:
+  = @questionnaire.discord
+%p
   %b Experience:
   = Questionnaire::POSSIBLE_EXPERIENCES[@questionnaire.experience]
 %p

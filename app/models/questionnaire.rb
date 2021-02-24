@@ -21,7 +21,7 @@ class Questionnaire < ApplicationRecord
 
   validates_uniqueness_of :user_id
 
-  validates_presence_of :phone, :date_of_birth, :school_id, :experience, :shirt_size, :interest
+  validates_presence_of :phone, :date_of_birth, :school_id, :experience, :shirt_size, :interest, :discord
   validates_presence_of :gender, :major, :level_of_study, :graduation_year, :race_ethnicity, :country
 
   DIETARY_SPECIAL_NEEDS_MAX_LENGTH = 500
@@ -46,6 +46,10 @@ class Questionnaire < ApplicationRecord
                       with: %r{\A((https?:\/\/)?(www\.)?((github\.com)|(gitlab\.com)|(bitbucket\.org))\/(.*){0,62})\z}i,
                       allow_blank: true,
                       message: "Must be a GitHub, GitLab or Bitbucket url"
+  validates_format_of :discord,
+                      with: /\A((?!(discordtag|everyone|here)#)((?!@|#|:|```).{2,32})#\d{4})\z/i,
+                      allow_blank: false,
+                      message: "Must match the format: <tag>#<discriminator>"
   strip_attributes
 
   POSSIBLE_EXPERIENCES = {

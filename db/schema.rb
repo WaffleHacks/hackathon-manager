@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_02_19_230501) do
+ActiveRecord::Schema.define(version: 2021_02_23_225806) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -261,6 +261,7 @@ ActiveRecord::Schema.define(version: 2021_02_19_230501) do
     t.string "race_ethnicity"
     t.integer "bus_list_id"
     t.string "country"
+    t.string "discord"
     t.index ["bus_list_id"], name: "index_questionnaires_on_bus_list_id"
     t.index ["user_id"], name: "index_questionnaires_on_user_id"
   end

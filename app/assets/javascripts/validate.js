@@ -44,6 +44,15 @@ document.addEventListener('turbolinks:load', function() {
               }
             }
             break;
+          case 'discord':
+            if (value) {
+              var discordReg = /^((?!(discordtag|everyone|here)#)((?!@|#|:|```).{2,32})#\d{4})$/;
+              if (!discordReg.test(value)) {
+                notify(this,'Please enter a valid Discord username and discriminator');
+                success = false;
+              }
+            }
+            break;
           case 'file-max-size':
             if (
               this.files &&
