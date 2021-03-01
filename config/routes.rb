@@ -24,6 +24,8 @@ Rails.application.routes.draw do
     mount Blazer::Engine, at: "blazer"
   end
 
+  post 'external/register'
+
   # devise doesnt parse GET /user
   resource :user, only: :show, constraints: ->(req) { req.format == :json }
 
