@@ -13,6 +13,9 @@
           %dt.col-md-5= "On"
           %dd.col-md-7= Webhook::POSSIBLE_TRIGGERS[@webhook.event]
         .row
+          %dt.col-md-5= "Format"
+          %dd.col-md-7= @webhook.format
+        .row
           %dt.col-md-5= "Sent To"
           %dd.col-md-7= @webhook.url
         .row

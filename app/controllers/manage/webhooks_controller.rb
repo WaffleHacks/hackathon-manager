@@ -52,6 +52,7 @@ class Manage::WebhooksController < Manage::ApplicationController
     end
 
     req = Net::HTTP::Post.new(uri, headers)
+    # TODO: change body based on specified format
     req.body = {
       type: "testing",
       content: "Hello world!"
@@ -72,7 +73,7 @@ class Manage::WebhooksController < Manage::ApplicationController
   private
 
   def webhook_params
-    params.require(:webhook).permit(:event, :url, :secret, :active)
+    params.require(:webhook).permit(:event, :url, :secret, :active, :format)
   end
 
   def set_webhook
