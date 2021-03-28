@@ -90,6 +90,10 @@ Rails.application.routes.draw do
       patch :template_update, on: :collection
       post :template_replace_with_default, on: :collection
     end
+    resources :webhooks do
+      post :datatable, on: :collection
+      get :test, on: :member
+    end
     resources :bus_lists do
       post :toggle_bus_captain, on: :member
       patch :send_update_email, on: :member

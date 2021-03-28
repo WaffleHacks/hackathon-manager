@@ -1,0 +1,14 @@
+.form-container
+  = bs_horizontal_simple_form_for @webhook, url: url_for(action: @webhook.new_record? ? "create" : "update", controller: "webhooks") do |f|
+    = f.error_notification
+
+    .form-inputs
+      = f.input :event, as: :select, collection: Webhook::POSSIBLE_TRIGGERS.invert, hint: "The event that triggers the webhook"
+      = f.input :url, hint: "The receiving webhook URL"
+      = f.input :secret, hint: "An optional shared secret to secure the webhook sent in the <pre class=\"d-inline\">Authorization</pre> header.".html_safe
+      = f.input :active
+
+    .form-actions.mb-3.mt-3
+      = f.button :submit, class: 'btn-primary'
+
+.mb-4

@@ -136,6 +136,8 @@ en:
         title: Questionnaires
       messages:
         title: Messages
+      webhooks:
+        title: Webhooks
       check-in:
         title: Check-in
       stats:

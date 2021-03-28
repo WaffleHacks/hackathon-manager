@@ -1,0 +1,4 @@
+= render "layouts/manage/page_title", title: "Edit Webhook", subtitle: "Id: #{@webhook.id}" do
+  = link_to "Cancel", manage_webhook_path(@webhook), class: "btn btn-sm btn-outline-secondary"
+
+= render "form"

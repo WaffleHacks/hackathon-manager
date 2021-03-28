@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  event: 1
+  url: MyString
+  secret: MyString
+  active: false
+
+two:
+  event: 1
+  url: MyString
+  secret: MyString
+  active: false
