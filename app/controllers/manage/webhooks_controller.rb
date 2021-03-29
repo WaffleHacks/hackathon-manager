@@ -44,27 +44,11 @@ class Manage::WebhooksController < Manage::ApplicationController
   end
 
   def test
-    uri = URI.parse(@webhook.url)
-
-    headers = { 'Content-Type' => 'application/json' }
-    if @webhook.secret?
-      headers['Authorization'] = @webhook.secret
-    end
-
-    req = Net::HTTP::Post.new(uri, headers)
-    # TODO: change body based on specified format
-    req.body = {
-      type: "testing",
-      content: "Hello world!"
-    }.to_json
-
-    response = Net::HTTP.start(uri.hostname, uri.port, use_ssl: uri.scheme == "https") do |http|
-      http.request(req)
-    end
-
+    # Send out a testing webhook
+    code, body = Webhooks.emit(@webhook.format, @webhook.url, @webhook.secret, "testing", status: "It works!")
     @status = {
-      code: response.code.to_i,
-      body: response.body,
+      code: code,
+      body: body,
     }
 
     render "show"

@@ -40,6 +40,9 @@ gem 'rack-cors'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.1.0', require: false
 
+# Discord webhooks support
+gem 'discordrb', '~> 3.4'
+
 # Authentication
 gem 'devise', '~> 4.7'
 gem 'omniauth-mlh', '~> 0.4.2'
