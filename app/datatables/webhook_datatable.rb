@@ -1,5 +1,3 @@
-# TODO: figure out why datatable won't render
-
 class WebhookDatatable < ApplicationDatatable
   def_delegators :@view, :display_datetime
 
