@@ -9,6 +9,8 @@ class Questionnaire < ApplicationRecord
   before_validation :clean_negative_dietary_restrictions
   after_create :queue_triggered_email_create
   after_update :queue_triggered_email_update
+  after_create :queue_webhook_create
+  after_update :queue_webhook_update
   after_update :queue_triggered_email_rsvp_reminder
   after_update :queue_triggered_email_checked_in
   after_save :update_school_questionnaire_count
@@ -480,6 +482,14 @@ class Questionnaire < ApplicationRecord
 
   def queue_triggered_email_create
     Message.queue_for_trigger("questionnaire.#{acc_status}", user_id)
+  end
+
+  def queue_webhook_update
+    Webhook.queue_for_event("questionnaire.#{acc_status}", questionnaire: self) if saved_change_to_acc_status?
+  end
+
+  def queue_webhook_create
+    Webhook.queue_for_event("questionnaire.#{acc_status}", questionnaire: self)
   end
 
   def queue_triggered_email_checked_in

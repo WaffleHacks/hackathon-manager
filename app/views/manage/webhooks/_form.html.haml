@@ -3,7 +3,7 @@
     = f.error_notification
 
     .form-inputs
-      = f.input :event, as: :select, collection: Webhook::POSSIBLE_TRIGGERS.invert, include_blank: false, hint: "The event that triggers the webhook"
+      = f.input :event, as: :select, collection: Webhook::POSSIBLE_EVENTS.invert, include_blank: false, hint: "The event that triggers the webhook"
       = f.input :format, as: :select, collection: Webhook::POSSIBLE_FORMATS, include_blank: false, hint: "The format in which data should be send to the webhook. For general webhooks, select <pre class=\"d-inline\">json</pre>; for Slack or Discord, select <pre class=\"d-inline\">slack</pre> or <pre class=\"d-inline\">discord</pre> respectively.".html_safe
       = f.input :url, hint: "The receiving webhook URL"
       = f.input :secret, hint: "An optional shared secret to secure the webhook sent in the <pre class=\"d-inline\">Authorization</pre> header. Unused for Slack and Discord webhooks.".html_safe

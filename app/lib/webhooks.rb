@@ -2,9 +2,9 @@ require 'discordrb/webhooks'
 require 'net/http'
 
 module Webhooks
-  READABLE_TRIGGERS = {
+  READABLE_EVENTS = {
     "questionnaire.pending" => "New Application",
-    "questionnaire.waitlist" => "New Late Application",
+    "questionnaire.late_waitlist" => "New Late Application",
     "questionnaire.rsvp_confirmed" => "RSVP Confirmed",
     "questionnaire.rsvp_denied" => "RSVP Denied",
     "testing" => "Webhooks work!",
@@ -57,7 +57,7 @@ module Webhooks
           # TODO: figure out how to format data based on event type
 
           # Set the title and content
-          embed.title = READABLE_TRIGGERS[type]
+          embed.title = READABLE_EVENTS[type]
           embed.description = "<PLACEHOLDER>"
         end
       end
@@ -82,7 +82,7 @@ module Webhooks
             type: "header",
             text: {
               type: "plain_text",
-              text: READABLE_TRIGGERS[type],
+              text: READABLE_EVENTS[type],
               emoji: false,
             }
           },

@@ -11,7 +11,7 @@
       .card-body
         .row
           %dt.col-md-5= "On"
-          %dd.col-md-7= Webhook::POSSIBLE_TRIGGERS[@webhook.event]
+          %dd.col-md-7= Webhook::POSSIBLE_EVENTS[@webhook.event]
         .row
           %dt.col-md-5= "Format"
           %dd.col-md-7= @webhook.format
