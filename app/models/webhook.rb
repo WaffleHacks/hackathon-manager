@@ -10,6 +10,8 @@ class Webhook < ApplicationRecord
 
   POSSIBLE_FORMATS = %w[json slack discord].freeze
 
+  has_many :webhook_histories
+
   validates_presence_of :active, :url, :event, :format
   validates_inclusion_of :event, in: POSSIBLE_EVENTS
   validates_inclusion_of :format, in: POSSIBLE_FORMATS

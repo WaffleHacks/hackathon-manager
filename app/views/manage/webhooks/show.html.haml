@@ -52,6 +52,32 @@
             %dd.col-md-7
               %pre= @status[:body]
 
+    .card.mb-3
+      .card-header= "Execution History"
+      .card-body.pb-2
+        - if @webhook.webhook_histories.empty?
+          %p.alert.alert-info
+            Webhook never executed
+        - else
+          %p= "Last 3 webhook responses:"
+        - @webhook.webhook_histories.order(created_at: :desc).limit(3).each do |history|
+          %hr.mt-1.mb-2
+          .d-xl-flex.justify-content-between
+            %div
+              %strong.mb-2= "Status Code: "
+              - if history.status_code < 300 && history.status_code >= 200
+                %span.badge.badge-success= history.status_code
+              - else
+                %span.badge.badge-danger= history.status_code
+              %p.mb-1.mt-2.font-weight-bold= "Response Body:"
+              %pre= history.body
+
+            .text-secondary.d-flex.justify-content-between.flex-xl-column.justify-content-xl-start.text-xl-right
+              %p.mb-0
+                %small
+                  %span.fa.fa-clock-o.icon-space-r-half
+                  = display_datetime(history.created_at)
+
   .col-lg-6
     .card.mb-3
       .card-header= "Change History"

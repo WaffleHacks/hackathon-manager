@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_28_012030) do
+ActiveRecord::Schema.define(version: 2021_03_30_010644) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -340,6 +340,15 @@ ActiveRecord::Schema.define(version: 2021_03_28_012030) do
     t.index ["uid"], name: "index_users_on_uid"
   end
 
+  create_table "webhook_histories", force: :cascade do |t|
+    t.bigint "webhook_id"
+    t.integer "status_code"
+    t.string "body"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["webhook_id"], name: "index_webhook_histories_on_webhook_id"
+  end
+
   create_table "webhooks", force: :cascade do |t|
     t.string "event", null: false
     t.string "url", null: false
@@ -357,4 +366,5 @@ ActiveRecord::Schema.define(version: 2021_03_28_012030) do
   add_foreign_key "school_name_duplicates", "schools"
   add_foreign_key "trackable_events", "trackable_tags"
   add_foreign_key "trackable_events", "users"
+  add_foreign_key "webhook_histories", "webhooks"
 end
