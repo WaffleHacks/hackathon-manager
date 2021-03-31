@@ -5,9 +5,10 @@
   %table.webhooks.datatable.table.table-striped.table-hover{ data: { "source" => datatable_manage_webhooks_path(format: :json), "auto-datatable": true } }
     %thead
       %tr
-        %th ID
-        %th Event
-        %th URL
-        %th Active
-        %th Created
+        %th{ 'data-table': { data: 'link' } }
+        %th{ 'data-table': { data: 'id' } } ID
+        %th{ 'data-table': { data: 'active' } } Active
+        %th{ 'data-table': { data: 'format' } } Format
+        %th{ 'data-table': { data: 'url' } } URL
+        %th{ 'data-table': { data: 'created_at' } } Created At
     %tbody

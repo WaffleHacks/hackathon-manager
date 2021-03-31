@@ -1,12 +1,12 @@
 class WebhookDatatable < ApplicationDatatable
-  def_delegators :@view, :display_datetime
+  def_delegators :@view, :link_to, :manage_webhook_path, :display_datetime
 
   def view_columns
     @view_columns ||= {
-      id: { source: "Webhook.id" },
-      event: { source: "Webhook.event" },
+      id: { source: "Webhook.id", searchable: false },
       url: { source: "Webhook.url" },
       active: { source: "Webhook.active" },
+      format: { source: "Webhook.format" },
       created_at: { source: "Webhook.created_at", searchable: false },
     }
   end
@@ -15,11 +15,13 @@ class WebhookDatatable < ApplicationDatatable
 
   def data
     records.map do |record|
+      puts record
       {
         id: record.id,
-        event: record.event,
+        link: link_to('<i class="fa fa-search"></i>'.html_safe, manage_webhook_path(record)),
         url: record.url,
-        active: record.active,
+        active: yes_no_display(record.active),
+        format: record.format,
         created_at: display_datetime(record.created_at),
       }
     end
