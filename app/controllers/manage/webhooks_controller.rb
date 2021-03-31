@@ -22,8 +22,8 @@ class Manage::WebhooksController < Manage::ApplicationController
   end
 
   def new
-    event = params[:event]
-    @webhook = Webhook.new(event: event)
+    events = params[:events]
+    @webhook = Webhook.new(events: events)
     respond_with(:manage, @webhook)
   end
 
