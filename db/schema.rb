@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_03_30_010644) do
+ActiveRecord::Schema.define(version: 2021_03_30_231918) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -350,13 +350,13 @@ ActiveRecord::Schema.define(version: 2021_03_30_010644) do
   end
 
   create_table "webhooks", force: :cascade do |t|
-    t.string "event", null: false
     t.string "url", null: false
     t.string "secret"
     t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "format", default: "json", null: false
+    t.integer "events", default: 0, null: false
   end
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

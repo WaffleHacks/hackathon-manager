@@ -3,11 +3,18 @@
     = f.error_notification
 
     .form-inputs
-      = f.input :event, as: :select, collection: Webhook::POSSIBLE_EVENTS.invert, include_blank: false, hint: "The event that triggers the webhook"
       = f.input :format, as: :select, collection: Webhook::POSSIBLE_FORMATS, include_blank: false, hint: "The format in which data should be send to the webhook. For general webhooks, select <pre class=\"d-inline\">json</pre>; for Slack or Discord, select <pre class=\"d-inline\">slack</pre> or <pre class=\"d-inline\">discord</pre> respectively.".html_safe
       = f.input :url, hint: "The receiving webhook URL"
       = f.input :secret, hint: "An optional shared secret to secure the webhook sent in the <pre class=\"d-inline\">Authorization</pre> header. Unused for Slack and Discord webhooks.".html_safe
       = f.input :active
+
+      %p.font-weight-bold= "Events:"
+
+      - @webhook.all_events.each_slice(2) do |row|
+        .row
+          - row.each do |event|
+            .col-md
+              = f.input event, as: :boolean, wrapper: :bootstrap_horizontal_boolean_alternate, label: Webhook::POSSIBLE_EVENTS[event]
 
     .form-actions.mb-3.mt-3
       = f.button :submit, class: 'btn-primary'

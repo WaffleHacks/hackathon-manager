@@ -3,20 +3,20 @@ require 'net/http'
 
 module Webhooks
   READABLE_EVENTS = {
-    "questionnaire.pending" => "New Application",
-    "questionnaire.late_waitlist" => "New Late Application",
-    "questionnaire.rsvp_confirmed" => "RSVP Confirmed",
-    "questionnaire.rsvp_denied" => "RSVP Denied",
-    "testing" => "Webhooks work!",
+    questionnaire_pending: "New Application",
+    questionnaire_late_waitlist: "New Late Application",
+    questionnaire_rsvp_confirmed: "RSVP Confirmed",
+    questionnaire_rsvp_denied: "RSVP Denied",
+    testing: "Webhooks work!",
   }.freeze
 
   def self.emit(format, url, secret, type, **data)
     return unless Webhook::POSSIBLE_FORMATS.include? format
 
     case format
-    when "json" then standard(url, secret, type, **data)
-    when "discord" then discord(url, type, **data)
-    when "slack" then slack(url, type, **data)
+    when "json" then standard(url, secret, type.to_sym, **data)
+    when "discord" then discord(url, type.to_sym, **data)
+    when "slack" then slack(url, type.to_sym, **data)
     end
   end
 
@@ -126,7 +126,7 @@ module Webhooks
 
     def generate_content(type, **data)
       case type
-      when "questionnaire.pending"
+      when :questionnaire_pending
         questionnaire = data[:questionnaire]
         school = questionnaire.school
         user = questionnaire.user
@@ -143,7 +143,7 @@ module Webhooks
             }
           ]
         ]
-      when "questionnaire.late_waitlist"
+      when :questionnaire_late_waitlist
         questionnaire = data[:questionnaire]
         school = questionnaire.school
         user = questionnaire.user
@@ -160,15 +160,15 @@ module Webhooks
             }
           ]
         ]
-      when "questionnaire.rsvp_confirmed"
+      when :questionnaire_rsvp_confirmed
         questionnaire = data[:questionnaire]
         user = questionnaire.user
         ["_#{user.first_name} #{user.last_name}_ (id: #{user.id}) will be attending!", []]
-      when "questionnaire.rsvp_denied"
+      when :questionnaire_rsvp_denied
         questionnaire = data[:questionnaire]
         user = questionnaire.user
         ["_#{user.first_name} #{user.last_name}_ (id: #{user.id}) will not be attending.", []]
-      when "testing" then ["Just testing that webhooks work.", []]
+      when :testing then ["Just testing that webhooks work.", []]
       else ["Invalid event, something went very wrong", []]
       end
     end

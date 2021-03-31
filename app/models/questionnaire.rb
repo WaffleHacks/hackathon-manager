@@ -485,11 +485,11 @@ class Questionnaire < ApplicationRecord
   end
 
   def queue_webhook_update
-    Webhook.queue_for_event("questionnaire.#{acc_status}", questionnaire: self) if saved_change_to_acc_status?
+    Webhook.queue_for_event("questionnaire_#{acc_status}", questionnaire: self) if saved_change_to_acc_status?
   end
 
   def queue_webhook_create
-    Webhook.queue_for_event("questionnaire.#{acc_status}", questionnaire: self)
+    Webhook.queue_for_event("questionnaire_#{acc_status}", questionnaire: self)
   end
 
   def queue_triggered_email_checked_in

@@ -43,6 +43,9 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # Discord webhooks support
 gem 'discordrb', '~> 3.4'
 
+# Bitmask fields in database
+gem 'flag_shih_tzu', '~> 0.3.23'
+
 # Authentication
 gem 'devise', '~> 4.7'
 gem 'omniauth-mlh', '~> 0.4.2'

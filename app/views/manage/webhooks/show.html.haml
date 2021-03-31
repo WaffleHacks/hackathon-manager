@@ -5,22 +5,10 @@
     = link_to "Delete", manage_webhook_path(@webhook), method: :delete, data: { confirm: "Are you sure? This action is irreversible." }, class: 'btn btn-sm btn-outline-secondary'
 
 .row.mt-2.mb-4
-  .col-lg-6
+  .col-lg-8
     .card.mb-3
       .card-header= "Webhook Information"
       .card-body
-        .row
-          %dt.col-md-5= "On"
-          %dd.col-md-7= Webhook::POSSIBLE_EVENTS[@webhook.event]
-        .row
-          %dt.col-md-5= "Format"
-          %dd.col-md-7= @webhook.format
-        .row
-          %dt.col-md-5= "Sent To"
-          %dd.col-md-7= @webhook.url
-        .row
-          %dt.col-md-5= "Secret"
-          %dd.col-md-7= @webhook.secret? ? @webhook.secret : "&#8203;".html_safe
         .row
           %dt.col-md-5= "Enabled"
           %dd.col-md-7
@@ -29,8 +17,23 @@
             - else
               %span.badge.badge-danger= "No"
         .row
+          %dt.col-md-5= "Format"
+          %dd.col-md-7= @webhook.format.capitalize
+        .row
+          %dt.col-md-5= "Send To"
+          %dd.col-md-7= @webhook.url
+        .row
+          %dt.col-md-5= "Secret"
+          %dd.col-md-7= @webhook.secret? ? @webhook.secret : "&#8203;".html_safe
+        .row
           %dt.col-md-5= "Created At"
           %dd.col-md-7= display_datetime(@webhook.created_at)
+        .row
+          %dt.col-md-5= "Events"
+          %dd.col-md-7
+            %ul.list-group.list-group-flush
+              - @webhook.selected_events.each do |event|
+                %li.list-group-item= Webhook::POSSIBLE_EVENTS[event]
 
     .card.mb-3
       .card-header= "Test Webhook"
@@ -78,7 +81,7 @@
                   %span.fa.fa-clock-o.icon-space-r-half
                   = display_datetime(history.created_at)
 
-  .col-lg-6
+  .col-lg-4
     .card.mb-3
       .card-header= "Change History"
       .card-body.pb-2

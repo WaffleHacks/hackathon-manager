@@ -34,6 +34,7 @@ class Manage::WebhooksController < Manage::ApplicationController
   end
 
   def update
+    puts webhook_params
     @webhook.update_attributes(webhook_params)
     respond_with(:manage, @webhook)
   end
@@ -45,7 +46,7 @@ class Manage::WebhooksController < Manage::ApplicationController
 
   def test
     # Send out a testing webhook
-    code, body = Webhooks.emit(@webhook.format, @webhook.url, @webhook.secret, "testing", status: "It works!")
+    code, body = Webhooks.emit(@webhook.format, @webhook.url, @webhook.secret, :testing, status: "It works!")
     @status = {
       code: code,
       body: body,
@@ -57,7 +58,10 @@ class Manage::WebhooksController < Manage::ApplicationController
   private
 
   def webhook_params
-    params.require(:webhook).permit(:event, :url, :secret, :active, :format)
+    params.require(:webhook).permit(
+      :url, :secret, :active, :format,
+      :questionnaire_pending, :questionnaire_late_waitlist, :questionnaire_rsvp_confirmed, :questionnaire_rsvp_denied
+    )
   end
 
   def set_webhook

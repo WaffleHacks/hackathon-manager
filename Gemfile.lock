@@ -169,6 +169,7 @@ GEM
     file_validators (3.0.0)
       activemodel (>= 3.2)
       mime-types (>= 1.0)
+    flag_shih_tzu (0.3.23)
     font-awesome-rails (4.7.0.7)
       railties (>= 3.2, < 7)
     formatador (0.2.5)
@@ -502,6 +503,7 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   file_validators
+  flag_shih_tzu (~> 0.3.23)
   font-awesome-rails (~> 4.7)
   fullcalendar-rails
   groupdate
