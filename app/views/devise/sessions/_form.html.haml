@@ -1,8 +1,11 @@
 = simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
-  - if ENV["MLH_KEY"].present?
+  - if ENV["MLH_KEY"].present? or ENV["DISCORD_CLIENT_ID"].present?
     .form-actions
       .center
-        = render 'my_mlh_cta'
+        - if ENV["MLH_KEY"].present?
+          = render 'my_mlh_cta'
+        - if ENV["DISCORD_CLIENT_ID"].present?
+          = render 'discord_cta'
         %p
           %em or use an email & password:
   .form-inputs

@@ -237,6 +237,7 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   config.omniauth :mlh, ENV['MLH_KEY'], ENV['MLH_SECRET']
+  config.omniauth :discord, ENV['DISCORD_CLIENT_ID'], ENV['DISCORD_CLIENT_SECRET'], scope: 'email identify guilds'
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

@@ -284,6 +284,9 @@ GEM
     omniauth (1.9.1)
       hashie (>= 3.4.6)
       rack (>= 1.6.2, < 3)
+    omniauth-discord (1.0.0)
+      omniauth
+      omniauth-oauth2
     omniauth-mlh (0.4.2)
       activesupport
       omniauth (~> 1.0)
@@ -518,6 +521,7 @@ DEPENDENCIES
   minitest-reporters
   momentjs-rails
   mustache (~> 1.0)
+  omniauth-discord (~> 1.0)
   omniauth-mlh (~> 0.4.2)
   omniauth-rails_csrf_protection
   pg (~> 1.1)

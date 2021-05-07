@@ -5,7 +5,7 @@ class User < ApplicationRecord
 
   devise :database_authenticatable, :registerable, :timeoutable,
          :recoverable, :rememberable, :trackable, :validatable,
-         :doorkeeper, :omniauthable, omniauth_providers: [:mlh]
+         :doorkeeper, :omniauthable, omniauth_providers: [:mlh, :discord]
 
   has_one :questionnaire
   has_many :access_grants, class_name: "Doorkeeper::AccessGrant",
@@ -64,7 +64,7 @@ class User < ApplicationRecord
     director? || organizer?
   end
 
-  def self.from_omniauth(auth)
+  def self.from_mlh_omniauth(auth)
     matching_provider = where(provider: auth.provider, uid: auth.uid)
     matching_email = where(email: auth.info.email)
     current_user = matching_provider.or(matching_email).first_or_create do |user|
@@ -77,6 +77,22 @@ class User < ApplicationRecord
     end
     # Autofill MyMLH provider if provider info is missing
     # (as we are executing this from OAuth)
+    if current_user.provider.blank?
+      current_user.provider = auth.provider
+    end
+    current_user
+  end
+
+  def self.from_discord_omniauth(auth)
+    matching_provider = where(provider: auth.provider, uid: auth.uid)
+    matching_email = where(email: auth.info.email)
+    current_user = matching_provider.or(matching_email).first_or_create do |user|
+      user.uid = auth.uid
+      user.email = auth.info.email
+      user.provider = auth.provider
+      user.password = Devise.friendly_token[0, 20]
+    end
+
     if current_user.provider.blank?
       current_user.provider = auth.provider
     end

@@ -1,7 +1,10 @@
 - title 'Register'
 .form-container.signup
   %h1.section-title.center
-    Create an
+    - if session["devise.provider_data"].present?
+      Complete your
+    - else
+      Create an
     .emphasized.text-overflow-center
       Account
 

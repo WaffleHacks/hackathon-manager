@@ -8,9 +8,30 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   # POST /resource
-  # def create
-  #   super
-  # end
+  def create
+    super do |resource|
+      if session["devise.provider_data"].present?
+        # Pre-populate the user's info
+        info = session["devise.provider_data"]
+        resource.email = info["email"]
+        resource.password = Devise.friendly_token[0, 20]
+        resource.provider = info["provider"]
+        resource.uid = info["uid"]
+
+        # Check if the user should be a director
+        guilds = HTTParty.get("https://discord.com/api/v8/users/@me/guilds", headers: { "Authorization": "Bearer #{info['token']}" })
+        is_director = guilds.any? { |guild| guild["id"] == ENV["DISCORD_GUILD_ID"] and (guild["owner"] or guild["permissions"] & 0x20 == 0x20) }
+        if is_director
+          resource.role = :director
+        end
+
+        resource.save
+
+        # Persist the user's discord id since the devise namespace is cleared
+        session["discord_username"] = info["username"]
+      end
+    end
+  end
 
   # GET /resource/edit
   def edit

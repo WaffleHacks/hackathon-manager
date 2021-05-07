@@ -50,6 +50,10 @@ class QuestionnairesController < ApplicationController
       end
     end
 
+    if session["discord_username"].present?
+      @questionnaire.tap { |q| q.discord = session["discord_username"] }
+    end
+
     respond_to do |format|
       format.html # new.html.erb
       format.json { render json: @questionnaire }

@@ -49,6 +49,7 @@ gem 'flag_shih_tzu', '~> 0.3.23'
 # Authentication
 gem 'devise', '~> 4.7'
 gem 'omniauth-mlh', '~> 0.4.2'
+gem 'omniauth-discord', '~> 1.0'
 gem 'doorkeeper', '~> 5.5'
 gem 'devise-doorkeeper'
 gem 'omniauth-rails_csrf_protection'
