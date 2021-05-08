@@ -16,10 +16,13 @@
       = f.input :email, required: true
       = f.input :password, required: true
       = f.input :password_confirmation, required: true, label:"Confirm"
+
   .form-actions.right
     = f.button :submit, coming_from_discord ? "Complete" : "Register"
 
-    - if !coming_from_discord
-      %p.session-link
+    %p.session-link
+      - if coming_from_discord
+        = link_to "Cancel", cancel_user_registration_path
+      - else
         Have an account?
         = link_to "Sign in!".html_safe, new_user_session_path
