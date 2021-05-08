@@ -27,7 +27,7 @@ class QuestionnairesController < ApplicationController
     @questionnaire = Questionnaire.new
     @agreements = Agreement.all
 
-    if session["devise.provider_data"] && session["devise.provider_data"]["info"]
+    if session["devise.provider_data"] && session["devise.provider_data"]["info"] && session["devise.provider_data"]["provider"] == "mlh"
       info = session["devise.provider_data"]["info"]
       @skip_my_mlh_fields = true
       unless all_my_mlh_fields_provided?
