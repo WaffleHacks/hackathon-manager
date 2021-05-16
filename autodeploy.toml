@@ -1,0 +1,9 @@
+[[deploy]]
+action = "command"
+command = "systemctl"
+args = ["restart", "hackathon-manager.service"]
+
+[[deploy]]
+action = "command"
+command = "systemctl"
+args = ["restart", "sidekiq.service"]
