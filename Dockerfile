@@ -29,22 +29,26 @@ RUN yarn install --frozen-lockfile
 # Stage to copy project files for sidekiq and rails
 FROM base as project
 
+# Create a new user to run as
+RUN adduser -D app
+USER app
+
 WORKDIR /hackathon-manager
 
 # Copy dependencies
-COPY --from=dependencies /usr/local/bundle/ /usr/local/bundle/
-COPY --from=dependencies /node_modules/ node_modules/
+COPY --chown=app --from=dependencies /usr/local/bundle/ /usr/local/bundle/
+COPY --chown=app --from=dependencies /node_modules/ node_modules/
 
 # Copy application files
-COPY app ./app/
-COPY bin ./bin/
-COPY config ./config/
-COPY db ./db/
-COPY lib ./lib/
-COPY public ./public/
-COPY config.ru ./
-COPY Gemfile Gemfile.lock ./
-COPY Rakefile ./
+COPY --chown=app app ./app/
+COPY --chown=app bin ./bin/
+COPY --chown=app config ./config/
+COPY --chown=app db ./db/
+COPY --chown=app lib ./lib/
+COPY --chown=app public ./public/
+COPY --chown=app config.ru ./
+COPY --chown=app Gemfile Gemfile.lock ./
+COPY --chown=app Rakefile ./
 
 
 ###
