@@ -20,7 +20,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
         # Check if the user should be a director
         guilds = HTTParty.get("https://discord.com/api/v8/users/@me/guilds", headers: { "Authorization": "Bearer #{info['token']}" })
-        is_director = guilds.any? { |guild| guild["id"] == ENV["DISCORD_GUILD_ID"] and (guild["owner"] or guild["permissions"] & 0x20 == 0x20) }
+        is_director = guilds.any? { |guild| guild["id"] == ENV["DISCORD_GUILD_ID"] and (guild["owner"] or guild["permissions"].to_i & 0x20 == 0x20) }
         if is_director
           resource.role = :director
         end
