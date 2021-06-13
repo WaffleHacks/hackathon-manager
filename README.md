@@ -81,6 +81,11 @@ If you don't already have Ruby + PostgreSQL set up, see [this guide by GoRails](
 * If given the choice, use `rbenv` -- this will ensure a clean, sustainable Ruby dev environment
 * SQLite and MySQL steps are optional
 
+If you have Docker and Docker Compose installed, you can run `docker-compose up -d` to setup a local instance of PostgreSQL and Redis.
+
+* The PostgreSQL instance can be connected with `postgres://postgres:postgres@127.0.0.1:5432/postgres`.
+* The Redis instance can be connected with `redis://127.0.0.1:6379`.
+
 2. Clone the repo
 
 ```bash
